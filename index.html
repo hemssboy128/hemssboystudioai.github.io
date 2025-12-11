@@ -3,34 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shine Boyz Record - Studio IA</title>
+    <title>Shine Boyz Record - Studio IA Professionnel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎵</text></svg>">
+    <link rel="icon" href="favicon.ico">
+    <meta name="theme-color" content="#ff4d00">
+    <meta name="description" content="Studio IA Shine Boyz - Enregistrez, générez, mixez et exportez votre musique professionnellement">
+    
+    <!-- PWA Support -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
-    <!-- Header & Navigation -->
-    <header class="header">
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <i class="fas fa-crown"></i>
+                <span>SHINE BOYZ</span>
+            </div>
+            <div class="loading-spinner"></div>
+            <p>Chargement du studio IA...</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="mainHeader">
         <div class="container header-container">
             <div class="logo-container">
                 <div class="logo-icon">
                     <i class="fas fa-crown"></i>
                 </div>
-                <h1 class="logo">
+                <div class="logo">
                     <span class="logo-shine">SHINE</span>
                     <span class="logo-boyz">BOYZ</span>
                     <span class="logo-record">RECORD</span>
-                </h1>
+                </div>
             </div>
             
             <nav class="nav">
                 <ul class="nav-list">
-                    <li><a href="#home" class="nav-link active"><i class="fas fa-home"></i> Accueil</a></li>
+                    <li><a href="#home" class="nav-link active"><i class="fas fa-home"></i> Studio</a></li>
                     <li><a href="#record" class="nav-link"><i class="fas fa-microphone"></i> Enregistrer</a></li>
-                    <li><a href="#generate" class="nav-link"><i class="fas fa-robot"></i> Générer</a></li>
+                    <li><a href="#generate" class="nav-link"><i class="fas fa-robot"></i> Générer IA</a></li>
                     <li><a href="#mix" class="nav-link"><i class="fas fa-sliders-h"></i> Mixer</a></li>
                     <li><a href="#export" class="nav-link"><i class="fas fa-download"></i> Exporter</a></li>
-                    <li><a href="#account" class="nav-link account-btn"><i class="fas fa-user"></i> Mon Compte</a></li>
+                    <li><button class="account-btn" id="accountBtn"><i class="fas fa-user"></i> Compte</button></li>
                 </ul>
                 
                 <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -46,12 +65,12 @@
         <section id="home" class="hero-section">
             <div class="container hero-container">
                 <div class="hero-content">
-                    <h2 class="hero-title">
+                    <h1 class="hero-title">
                         <span class="hero-highlight">STUDIO IA</span> PROFESSIONNEL
-                    </h2>
+                    </h1>
                     <p class="hero-subtitle">
                         Enregistrez votre voix, générez un beat IA, mixez et masterisez automatiquement.
-                        <span class="hero-subtitle-highlight">Tout depuis votre téléphone.</span>
+                        <span class="hero-subtitle-highlight">Tout depuis votre navigateur.</span>
                     </p>
                     
                     <div class="hero-steps">
@@ -90,7 +109,7 @@
                         <button class="btn-primary btn-hero" id="startRecordingBtn">
                             <i class="fas fa-microphone"></i> COMMENCER L'ENREGISTREMENT
                         </button>
-                        <button class="btn-secondary btn-hero">
+                        <button class="btn-secondary btn-hero" id="demoBtn">
                             <i class="fas fa-play-circle"></i> VOIR LA DÉMO
                         </button>
                     </div>
@@ -99,7 +118,7 @@
                 <div class="hero-visual">
                     <div class="visual-container">
                         <div class="audio-visualizer" id="audioVisualizer">
-                            <!-- Les barres de visualisation seront générées par JS -->
+                            <!-- Visualizer bars will be generated by JS -->
                         </div>
                         <div class="visual-controls">
                             <div class="control">
@@ -126,9 +145,9 @@
                 <div class="section-header">
                     <h2 class="section-title">
                         <i class="fas fa-microphone section-icon"></i>
-                        Enregistrement Vocal
+                        Enregistrement Vocal Professionnel
                     </h2>
-                    <p class="section-subtitle">Capturez votre voix avec une qualité studio professionnelle</p>
+                    <p class="section-subtitle">Capturez votre voix avec traitement audio intelligent en temps réel</p>
                 </div>
                 
                 <div class="recording-container">
@@ -158,24 +177,37 @@
                             </button>
                         </div>
                         
+                        <div class="recording-quality">
+                            <h3>Qualité d'enregistrement</h3>
+                            <div class="quality-selector">
+                                <button class="quality-btn active" data-quality="low">Basique</button>
+                                <button class="quality-btn" data-quality="medium">Standard</button>
+                                <button class="quality-btn" data-quality="high">Studio</button>
+                            </div>
+                        </div>
+                        
                         <div class="recording-features">
-                            <h3>Fonctionnalités d'enregistrement</h3>
+                            <h3>Traitements audio appliqués</h3>
                             <div class="features-grid">
                                 <div class="feature">
                                     <i class="fas fa-volume-mute"></i>
                                     <span>Suppression du bruit</span>
+                                    <div class="feature-toggle active"></div>
                                 </div>
                                 <div class="feature">
                                     <i class="fas fa-wave-square"></i>
-                                    <span>Normalisation du volume</span>
+                                    <span>Normalisation</span>
+                                    <div class="feature-toggle active"></div>
                                 </div>
                                 <div class="feature">
                                     <i class="fas fa-wind"></i>
-                                    <span>Nettoyage vocal (De-esser)</span>
+                                    <span>De-esser</span>
+                                    <div class="feature-toggle"></div>
                                 </div>
                                 <div class="feature">
                                     <i class="fas fa-sliders-h"></i>
                                     <span>EQ automatique</span>
+                                    <div class="feature-toggle active"></div>
                                 </div>
                             </div>
                         </div>
@@ -183,8 +215,10 @@
                     
                     <div class="recording-visual">
                         <div class="waveform-container">
-                            <h3>Visualisation audio</h3>
-                            <canvas id="waveformCanvas"></canvas>
+                            <h3>Waveform en direct</h3>
+                            <div class="waveform-display" id="waveformDisplay">
+                                <canvas id="waveformCanvas"></canvas>
+                            </div>
                             <div class="waveform-controls">
                                 <button class="waveform-btn" id="zoomInBtn">
                                     <i class="fas fa-search-plus"></i>
@@ -195,19 +229,22 @@
                                 <button class="waveform-btn" id="fitWaveformBtn">
                                     <i class="fas fa-expand"></i>
                                 </button>
+                                <button class="waveform-btn" id="saveWaveformBtn">
+                                    <i class="fas fa-save"></i>
+                                </button>
                             </div>
                         </div>
                         
                         <div class="audio-meters">
                             <div class="meter">
-                                <h4>Niveau d'entrée</h4>
+                                <h4><i class="fas fa-signal"></i> Niveau micro</h4>
                                 <div class="meter-bar">
                                     <div class="meter-level" id="inputLevel"></div>
                                 </div>
                                 <span id="inputLevelText">-∞ dB</span>
                             </div>
                             <div class="meter">
-                                <h4>Volume de sortie</h4>
+                                <h4><i class="fas fa-volume-up"></i> Sortie</h4>
                                 <div class="meter-bar">
                                     <div class="meter-level" id="outputLevel"></div>
                                 </div>
@@ -227,35 +264,35 @@
                         <i class="fas fa-robot section-icon"></i>
                         Génération Instrumentale IA
                     </h2>
-                    <p class="section-subtitle">Créez un beat original avec le moteur IA Shine Boyz Engine</p>
+                    <p class="section-subtitle">Créez un beat original avec l'IA Shine Boyz Engine</p>
                 </div>
                 
                 <div class="generation-container">
                     <div class="style-selector">
-                        <h3>Sélectionnez un style musical</h3>
+                        <h3><i class="fas fa-music"></i> Sélectionnez un style musical</h3>
                         <div class="styles-grid" id="stylesGrid">
-                            <!-- Les styles seront générés par JS -->
+                            <!-- Styles will be loaded by JS -->
                         </div>
                         
                         <div class="style-params">
-                            <h3>Paramètres avancés</h3>
+                            <h3><i class="fas fa-sliders-h"></i> Paramètres avancés</h3>
                             <div class="params-grid">
                                 <div class="param">
-                                    <label for="bpmRange">BPM (Tempo)</label>
+                                    <label for="bpmRange"><i class="fas fa-tachometer-alt"></i> BPM (Tempo)</label>
                                     <div class="param-control">
                                         <input type="range" id="bpmRange" min="60" max="200" value="120">
                                         <span id="bpmValue">120 BPM</span>
                                     </div>
                                 </div>
                                 <div class="param">
-                                    <label for="energyRange">Énergie</label>
+                                    <label for="energyRange"><i class="fas fa-bolt"></i> Énergie</label>
                                     <div class="param-control">
                                         <input type="range" id="energyRange" min="1" max="10" value="7">
                                         <span id="energyValue">7/10</span>
                                     </div>
                                 </div>
                                 <div class="param">
-                                    <label for="moodSelect">Ambiance</label>
+                                    <label for="moodSelect"><i class="fas fa-smile"></i> Ambiance</label>
                                     <select id="moodSelect">
                                         <option value="happy">Joyeuх</option>
                                         <option value="melancholic">Mélancolique</option>
@@ -265,7 +302,7 @@
                                     </select>
                                 </div>
                                 <div class="param">
-                                    <label for="durationSelect">Durée</label>
+                                    <label for="durationSelect"><i class="fas fa-clock"></i> Durée</label>
                                     <select id="durationSelect">
                                         <option value="60">1 minute</option>
                                         <option value="120">2 minutes</option>
@@ -275,14 +312,28 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="import-section">
+                            <h3><i class="fas fa-file-import"></i> Importer un instrumental</h3>
+                            <div class="import-zone" id="importZone">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Glissez-déposez votre fichier audio ici</p>
+                                <small>Formats supportés: MP3, WAV, FLAC, OGG</small>
+                                <input type="file" id="fileInput" accept="audio/*" style="display: none;">
+                                <button class="btn-secondary" id="browseFilesBtn">
+                                    <i class="fas fa-folder-open"></i> Parcourir les fichiers
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="generation-controls">
                         <div class="generation-preview">
-                            <h3>Aperçu de l'instrumental</h3>
+                            <h3><i class="fas fa-play-circle"></i> Aperçu de l'instrumental</h3>
                             <div class="preview-placeholder" id="previewPlaceholder">
                                 <i class="fas fa-music"></i>
                                 <p>Aucun instrumental généré</p>
+                                <small>Cliquez sur "Générer" pour créer un beat</small>
                             </div>
                             <div class="preview-player" id="previewPlayer" style="display: none;">
                                 <div class="preview-waveform">
@@ -293,7 +344,11 @@
                                         <i class="fas fa-play"></i>
                                     </button>
                                     <div class="preview-time">
-                                        <span id="currentTime">0:00</span> / <span id="totalTime">0:00</span>
+                                        <span id="currentTime">0:00</span> / <span id="totalTime">3:00</span>
+                                    </div>
+                                    <div class="preview-volume">
+                                        <i class="fas fa-volume-up"></i>
+                                        <input type="range" id="previewVolume" min="0" max="100" value="80">
                                     </div>
                                     <button class="preview-btn" id="generateVariationBtn">
                                         <i class="fas fa-random"></i> Variante
@@ -304,16 +359,19 @@
                         
                         <div class="generation-actions">
                             <button class="btn-generate" id="generateBtn">
-                                <i class="fas fa-bolt"></i> GÉNÉRER L'INSTRUMENTAL
+                                <i class="fas fa-bolt"></i> GÉNÉRER L'INSTRUMENTAL IA
+                            </button>
+                            <button class="btn-secondary" id="analyzeVocalBtn" style="margin-top: 10px;">
+                                <i class="fas fa-chart-line"></i> Analyser le vocal pour BPM
                             </button>
                             <p class="generation-note">
                                 <i class="fas fa-info-circle"></i>
-                                L'IA analysera automatiquement le BPM de votre voix et créera un beat synchronisé.
+                                L'IA analysera automatiquement votre voix et créera un beat synchronisé.
                             </p>
                         </div>
                         
                         <div class="generation-status">
-                            <h3>Processus IA Shine Boyz</h3>
+                            <h3><i class="fas fa-cogs"></i> Processus IA Shine Boyz</h3>
                             <div class="status-steps">
                                 <div class="status-step active">
                                     <div class="step-check"><i class="fas fa-check"></i></div>
@@ -329,8 +387,30 @@
                                 </div>
                                 <div class="status-step">
                                     <div class="step-check">4</div>
-                                    <span>Optimisation</span>
+                                    <span>Optimisation IA</span>
                                 </div>
+                            </div>
+                        </div>
+                        
+                        <div class="ai-tools">
+                            <h3><i class="fas fa-magic"></i> Outils IA Avancés</h3>
+                            <div class="ai-tools-grid">
+                                <button class="ai-tool-btn" data-tool="separate">
+                                    <i class="fas fa-waveform"></i>
+                                    <span>Séparer Voix/Instrumental</span>
+                                </button>
+                                <button class="ai-tool-btn" data-tool="recompose">
+                                    <i class="fas fa-random"></i>
+                                    <span>Recomposer avec IA</span>
+                                </button>
+                                <button class="ai-tool-btn" data-tool="enhance">
+                                    <i class="fas fa-star"></i>
+                                    <span>Améliorer la qualité</span>
+                                </button>
+                                <button class="ai-tool-btn" data-tool="transcribe">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>Transcrire les paroles</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -346,7 +426,7 @@
                         <i class="fas fa-sliders-h section-icon"></i>
                         Mixage & Mastering IA
                     </h2>
-                    <p class="section-subtitle">Mixage professionnel automatique avec qualité "Shine Boyz"</p>
+                    <p class="section-subtitle">Mixage professionnel automatique avec qualité "Shine Boyz Quality"</p>
                 </div>
                 
                 <div class="mixing-container">
@@ -362,25 +442,25 @@
                                 </div>
                                 <div class="channel-effects">
                                     <div class="effect">
-                                        <label>EQ</label>
+                                        <label><i class="fas fa-equalizer"></i> EQ</label>
                                         <div class="effect-status active">
                                             <i class="fas fa-check"></i>
                                         </div>
                                     </div>
                                     <div class="effect">
-                                        <label>Compression</label>
+                                        <label><i class="fas fa-compress"></i> Compression</label>
                                         <div class="effect-status active">
                                             <i class="fas fa-check"></i>
                                         </div>
                                     </div>
                                     <div class="effect">
-                                        <label>Reverb</label>
+                                        <label><i class="fas fa-echo"></i> Reverb</label>
                                         <div class="effect-status">
                                             <i class="fas fa-times"></i>
                                         </div>
                                     </div>
                                     <div class="effect">
-                                        <label>Auto-Tune</label>
+                                        <label><i class="fas fa-sync"></i> Auto-Tune</label>
                                         <div class="effect-status">
                                             <i class="fas fa-times"></i>
                                         </div>
@@ -400,21 +480,27 @@
                                 </div>
                                 <div class="channel-effects">
                                     <div class="effect">
-                                        <label>EQ</label>
+                                        <label><i class="fas fa-equalizer"></i> EQ</label>
                                         <div class="effect-status active">
                                             <i class="fas fa-check"></i>
                                         </div>
                                     </div>
                                     <div class="effect">
-                                        <label>Sidechain</label>
+                                        <label><i class="fas fa-link"></i> Sidechain</label>
                                         <div class="effect-status active">
                                             <i class="fas fa-check"></i>
                                         </div>
                                     </div>
                                     <div class="effect">
-                                        <label>Compression</label>
+                                        <label><i class="fas fa-compress"></i> Compression</label>
                                         <div class="effect-status">
                                             <i class="fas fa-times"></i>
+                                        </div>
+                                    </div>
+                                    <div class="effect">
+                                        <label><i class="fas fa-satellite-dish"></i> Widener</label>
+                                        <div class="effect-status active">
+                                            <i class="fas fa-check"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -441,33 +527,36 @@
                     </div>
                     
                     <div class="mastering-controls">
-                        <h3>Paramètres de mastering</h3>
+                        <div class="mastering-presets">
+                            <h3><i class="fas fa-prescription-bottle"></i> Présets de mastering</h3>
+                            <div class="presets-grid">
+                                <button class="preset-btn active" data-preset="shine-boyz">
+                                    <i class="fas fa-crown"></i> Shine Boyz
+                                </button>
+                                <button class="preset-btn" data-preset="spotify">
+                                    <i class="fab fa-spotify"></i> Spotify
+                                </button>
+                                <button class="preset-btn" data-preset="apple">
+                                    <i class="fab fa-apple"></i> Apple Music
+                                </button>
+                                <button class="preset-btn" data-preset="radio">
+                                    <i class="fas fa-broadcast-tower"></i> Radio
+                                </button>
+                                <button class="preset-btn" data-preset="club">
+                                    <i class="fas fa-glass-cheers"></i> Club
+                                </button>
+                            </div>
+                        </div>
+                        
                         <div class="mastering-params">
+                            <h3><i class="fas fa-sliders-h"></i> Paramètres de mastering</h3>
                             <div class="mastering-param">
-                                <label for="loudnessRange">Loudness (LUFS)</label>
+                                <label for="loudnessRange"><i class="fas fa-volume-up"></i> Loudness (LUFS)</label>
                                 <div class="param-control">
                                     <input type="range" id="loudnessRange" min="-20" max="-8" value="-14">
                                     <span id="loudnessValue">-14 LUFS</span>
                                 </div>
-                                <small>Spotify: -14 LUFS, Apple Music: -16 LUFS</small>
-                            </div>
-                            
-                            <div class="mastering-presets">
-                                <h4>Présets de mastering</h4>
-                                <div class="presets-grid">
-                                    <button class="preset-btn active" data-preset="shine-boyz">
-                                        <i class="fas fa-crown"></i> Shine Boyz
-                                    </button>
-                                    <button class="preset-btn" data-preset="spotify">
-                                        <i class="fab fa-spotify"></i> Spotify
-                                    </button>
-                                    <button class="preset-btn" data-preset="apple">
-                                        <i class="fab fa-apple"></i> Apple Music
-                                    </button>
-                                    <button class="preset-btn" data-preset="radio">
-                                        <i class="fas fa-broadcast-tower"></i> Radio
-                                    </button>
-                                </div>
+                                <small><i class="fas fa-info-circle"></i> Spotify: -14 LUFS, Apple Music: -16 LUFS, Radio: -9 LUFS</small>
                             </div>
                             
                             <div class="mastering-actions">
@@ -475,7 +564,7 @@
                                     <i class="fas fa-chart-bar"></i> Analyser le mix
                                 </button>
                                 <button class="btn-master" id="masterBtn">
-                                    <i class="fas fa-magic"></i> APPLIQUER LE MASTERING
+                                    <i class="fas fa-magic"></i> APPLIQUER LE MASTERING IA
                                 </button>
                             </div>
                         </div>
@@ -498,11 +587,16 @@
                 <div class="export-container">
                     <div class="export-preview">
                         <div class="track-info">
-                            <div class="track-cover">
+                            <div class="track-cover" id="trackCover">
                                 <i class="fas fa-music"></i>
+                                <div class="cover-overlay">
+                                    <button class="cover-change" id="changeCoverBtn">
+                                        <i class="fas fa-camera"></i>
+                                    </button>
+                                </div>
                             </div>
                             <div class="track-details">
-                                <h3 id="trackTitle">Nouveau morceau</h3>
+                                <h3 id="trackTitle">Nouveau Morceau</h3>
                                 <p id="trackArtist">Artiste Shine Boyz</p>
                                 <div class="track-stats">
                                     <div class="stat">
@@ -536,20 +630,21 @@
                                     <i class="fas fa-volume-up"></i>
                                     <input type="range" id="finalVolume" min="0" max="100" value="80">
                                 </div>
+                                <button class="player-btn" id="loopBtn">
+                                    <i class="fas fa-redo"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
                     
                     <div class="export-options">
-                        <h3>Options d'exportation</h3>
-                        
                         <div class="format-options">
-                            <h4>Format audio</h4>
+                            <h3><i class="fas fa-file-audio"></i> Format audio</h3>
                             <div class="format-grid">
                                 <div class="format-option active" data-format="wav">
                                     <i class="fas fa-file-audio"></i>
                                     <span>WAV 24-bit</span>
-                                    <small>Qualité maximale</small>
+                                    <small>Qualité maximale (lossless)</small>
                                 </div>
                                 <div class="format-option" data-format="mp3">
                                     <i class="fas fa-file-audio"></i>
@@ -561,23 +656,65 @@
                                     <span>FLAC</span>
                                     <small>Lossless compressé</small>
                                 </div>
+                                <div class="format-option" data-format="aac">
+                                    <i class="fas fa-file-audio"></i>
+                                    <span>AAC 256kbps</span>
+                                    <small>Apple compatible</small>
+                                </div>
                             </div>
                         </div>
                         
                         <div class="project-options">
-                            <h4>Projet studio</h4>
+                            <h3><i class="fas fa-file-export"></i> Projet studio</h3>
                             <div class="project-grid">
                                 <div class="project-option" data-project="flstudio">
                                     <i class="fas fa-file-export"></i>
                                     <span>FL Studio</span>
+                                    <small>.flp project</small>
                                 </div>
                                 <div class="project-option" data-project="ableton">
                                     <i class="fas fa-file-export"></i>
                                     <span>Ableton Live</span>
+                                    <small>.als project</small>
                                 </div>
                                 <div class="project-option" data-project="logic">
                                     <i class="fas fa-file-export"></i>
                                     <span>Logic Pro</span>
+                                    <small>.logicx project</small>
+                                </div>
+                                <div class="project-option" data-project="shine">
+                                    <i class="fas fa-file-export"></i>
+                                    <span>Shine Boyz Pro</span>
+                                    <small>.shine project</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="metadata-options">
+                            <h3><i class="fas fa-info-circle"></i> Métadonnées</h3>
+                            <div class="metadata-form">
+                                <div class="form-group">
+                                    <label for="trackNameInput">Nom du morceau</label>
+                                    <input type="text" id="trackNameInput" placeholder="Mon nouveau hit">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artistNameInput">Nom de l'artiste</label>
+                                    <input type="text" id="artistNameInput" placeholder="Votre nom d'artiste">
+                                </div>
+                                <div class="form-group">
+                                    <label for="albumInput">Album</label>
+                                    <input type="text" id="albumInput" placeholder="Nom de l'album">
+                                </div>
+                                <div class="form-group">
+                                    <label for="genreSelect">Genre</label>
+                                    <select id="genreSelect">
+                                        <option>Afrobeat</option>
+                                        <option>Hip-Hop</option>
+                                        <option>RnB</option>
+                                        <option>Trap</option>
+                                        <option>M'balax</option>
+                                        <option>Drill</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -587,100 +724,27 @@
                                 <i class="fas fa-download"></i> EXPORTER LE MORCEAU
                             </button>
                             <div class="share-options">
-                                <h4>Partager sur</h4>
+                                <h4><i class="fas fa-share-alt"></i> Partager sur</h4>
                                 <div class="share-buttons">
-                                    <button class="share-btn whatsapp">
+                                    <button class="share-btn whatsapp" data-platform="whatsapp">
                                         <i class="fab fa-whatsapp"></i>
                                     </button>
-                                    <button class="share-btn instagram">
+                                    <button class="share-btn instagram" data-platform="instagram">
                                         <i class="fab fa-instagram"></i>
                                     </button>
-                                    <button class="share-btn telegram">
+                                    <button class="share-btn telegram" data-platform="telegram">
                                         <i class="fab fa-telegram"></i>
                                     </button>
-                                    <button class="share-btn email">
+                                    <button class="share-btn tiktok" data-platform="tiktok">
+                                        <i class="fab fa-tiktok"></i>
+                                    </button>
+                                    <button class="share-btn email" data-platform="email">
                                         <i class="fas fa-envelope"></i>
                                     </button>
+                                    <button class="share-btn cloud" data-platform="cloud">
+                                        <i class="fas fa-cloud"></i>
+                                    </button>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Account Section -->
-        <section id="account" class="section account-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">
-                        <i class="fas fa-user section-icon"></i>
-                        Mon Compte Shine Boyz
-                    </h2>
-                    <p class="section-subtitle">Gérez vos projets et accédez à votre bibliothèque</p>
-                </div>
-                
-                <div class="account-container">
-                    <div class="account-sidebar">
-                        <div class="account-info">
-                            <div class="account-avatar">
-                                <i class="fas fa-user-circle"></i>
-                            </div>
-                            <h3 id="accountName">Artiste Shine Boyz</h3>
-                            <p id="accountEmail">artiste@shineboyz.com</p>
-                            <div class="account-stats">
-                                <div class="account-stat">
-                                    <strong id="projectsCount">12</strong>
-                                    <span>Projets</span>
-                                </div>
-                                <div class="account-stat">
-                                    <strong id="storageUsed">3.2</strong>
-                                    <span>Go utilisés</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="account-menu">
-                            <a href="#" class="menu-item active">
-                                <i class="fas fa-folder"></i> Mes projets
-                            </a>
-                            <a href="#" class="menu-item">
-                                <i class="fas fa-cloud"></i> Stockage cloud
-                            </a>
-                            <a href="#" class="menu-item">
-                                <i class="fas fa-history"></i> Historique
-                            </a>
-                            <a href="#" class="menu-item">
-                                <i class="fas fa-cog"></i> Paramètres
-                            </a>
-                            <a href="#" class="menu-item">
-                                <i class="fas fa-sign-out-alt"></i> Déconnexion
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="account-content">
-                        <div class="projects-header">
-                            <h3>Mes projets récents</h3>
-                            <button class="btn-new-project">
-                                <i class="fas fa-plus"></i> Nouveau projet
-                            </button>
-                        </div>
-                        
-                        <div class="projects-grid" id="projectsGrid">
-                            <!-- Les projets seront générés par JS -->
-                        </div>
-                        
-                        <div class="account-storage">
-                            <h3>Utilisation du stockage</h3>
-                            <div class="storage-bar">
-                                <div class="storage-progress" id="storageProgress"></div>
-                            </div>
-                            <div class="storage-info">
-                                <span id="storageText">3.2 Go sur 10 Go utilisés</span>
-                                <button class="btn-upgrade">
-                                    <i class="fas fa-rocket"></i> Mettre à niveau
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -705,38 +769,39 @@
                     <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
                     <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
                     <a href="#" class="social-link"><i class="fab fa-spotify"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
             
             <div class="footer-links">
                 <div class="footer-column">
                     <h4>Produit</h4>
-                    <a href="#">Fonctionnalités</a>
-                    <a href="#">Tarifs</a>
-                    <a href="#">Applications mobiles</a>
-                    <a href="#">Nouveautés</a>
+                    <a href="#"><i class="fas fa-arrow-right"></i> Fonctionnalités</a>
+                    <a href="#"><i class="fas fa-arrow-right"></i> Tarifs</a>
+                    <a href="#"><i class="fas fa-arrow-right"></i> Applications mobiles</a>
+                    <a href="#"><i class="fas fa-arrow-right"></i> Nouveautés</a>
                 </div>
                 <div class="footer-column">
                     <h4>Ressources</h4>
-                    <a href="#">Centre d'aide</a>
-                    <a href="#">Tutoriels</a>
-                    <a href="#">API pour développeurs</a>
-                    <a href="#">Statut du service</a>
+                    <a href="#"><i class="fas fa-arrow-right"></i> Centre d'aide</a>
+                    <a href="#"><i class="fas fa-arrow-right"></i> Tutoriels</a>
+                    <a href="#"><i class="fas fa-arrow-right"></i> API développeurs</a>
+                    <a href="#"><i class="fas fa-arrow-right"></i> Statut service</a>
                 </div>
                 <div class="footer-column">
-                    <h4>Shine Boyz Record</h4>
-                    <a href="#">À propos</a>
-                    <a href="#">Carrières</a>
-                    <a href="#">Contact</a>
-                    <a href="#">Politique de confidentialité</a>
+                    <h4>Shine Boyz</h4>
+                    <a href="#"><i class="fas fa-arrow-right"></i> À propos</a>
+                    <a href="#"><i class="fas fa-arrow-right"></i> Carrières</a>
+                    <a href="#"><i class="fas fa-arrow-right"></i> Contact</a>
+                    <a href="#"><i class="fas fa-arrow-right"></i> Confidentialité</a>
                 </div>
             </div>
         </div>
         
         <div class="footer-bottom">
             <div class="container">
-                <p>&copy; 2023 Shine Boyz Record. Tous droits réservés.</p>
-                <p>Made with <i class="fas fa-heart"></i> for the music community</p>
+                <p>&copy; 2024 Shine Boyz Record. Tous droits réservés.</p>
+                <p>Made with <i class="fas fa-heart"></i> for the global music community</p>
             </div>
         </div>
     </footer>
@@ -745,22 +810,27 @@
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Connexion Shine Boyz</h2>
+                <h2><i class="fas fa-user"></i> Connexion Shine Boyz</h2>
                 <button class="modal-close" id="closeLoginModal">&times;</button>
             </div>
             <div class="modal-body">
                 <form id="loginForm">
                     <div class="form-group">
-                        <label for="loginEmail">Email</label>
+                        <label for="loginEmail"><i class="fas fa-envelope"></i> Email</label>
                         <input type="email" id="loginEmail" placeholder="artiste@shineboyz.com" required>
                     </div>
                     <div class="form-group">
-                        <label for="loginPassword">Mot de passe</label>
+                        <label for="loginPassword"><i class="fas fa-lock"></i> Mot de passe</label>
                         <input type="password" id="loginPassword" placeholder="Votre mot de passe" required>
                     </div>
-                    <button type="submit" class="btn-primary btn-block">Se connecter</button>
+                    <button type="submit" class="btn-primary btn-block">
+                        <i class="fas fa-sign-in-alt"></i> Se connecter
+                    </button>
                 </form>
-                <p class="modal-text">Pas encore de compte? <a href="#" id="showRegister">S'inscrire</a></p>
+                <p class="modal-text">
+                    Pas encore de compte? 
+                    <a href="#" id="showRegister">S'inscrire gratuitement</a>
+                </p>
             </div>
         </div>
     </div>
@@ -768,32 +838,64 @@
     <div class="modal" id="exportModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Exportation en cours</h2>
+                <h2><i class="fas fa-download"></i> Exportation en cours</h2>
             </div>
             <div class="modal-body">
                 <div class="export-progress">
                     <div class="progress-bar">
                         <div class="progress-fill" id="exportProgressFill"></div>
                     </div>
-                    <span id="exportProgressText">0%</span>
+                    <div class="progress-text">
+                        <span id="exportProgressText">0%</span>
+                    </div>
                 </div>
                 <p id="exportStatus">Préparation de l'exportation...</p>
                 <div class="export-steps">
                     <div class="export-step active">
-                        <i class="fas fa-check"></i>
+                        <div class="step-icon"><i class="fas fa-cog"></i></div>
                         <span>Préparation</span>
                     </div>
                     <div class="export-step">
-                        <i class="fas fa-spinner"></i>
+                        <div class="step-icon"><i class="fas fa-file-audio"></i></div>
                         <span>Encodage audio</span>
                     </div>
                     <div class="export-step">
-                        <i class="far fa-file"></i>
-                        <span>Génération métadonnées</span>
+                        <div class="step-icon"><i class="fas fa-tags"></i></div>
+                        <span>Métadonnées</span>
                     </div>
                     <div class="export-step">
-                        <i class="fas fa-download"></i>
+                        <div class="step-icon"><i class="fas fa-download"></i></div>
                         <span>Téléchargement</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="aiProcessingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-robot"></i> Traitement IA en cours</h2>
+            </div>
+            <div class="modal-body">
+                <div class="ai-progress">
+                    <div class="ai-spinner">
+                        <i class="fas fa-cog fa-spin"></i>
+                    </div>
+                    <p id="aiStatus">Analyse de votre voix...</p>
+                    <div class="ai-details">
+                        <div class="ai-detail">
+                            <i class="fas fa-waveform"></i>
+                            <span>Extraction BPM: <strong>120</strong></span>
+                        </div>
+                        <div class="ai-detail">
+                            <i class="fas fa-music"></i>
+                            <span>Style détecté: <strong>Afrobeat</strong></span>
+                        </div>
+                        <div class="ai-detail">
+                            <i class="fas fa-bolt"></i>
+                            <span>Génération IA: <strong>75%</strong></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -812,8 +914,29 @@
     <audio id="audioPlayer" style="display: none;"></audio>
     <audio id="previewAudio" style="display: none;"></audio>
     <audio id="finalAudio" style="display: none;"></audio>
+    
+    <!-- Demo audio for preview -->
+    <audio id="demoAudio" style="display: none;">
+        <source src="https://assets.mixkit.co/music/preview/mixkit-tech-house-vibes-130.mp3" type="audio/mp3">
+    </audio>
 
     <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/wavesurfer.js@7"></script>
     <script src="script.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('sw.js')
+                    .then(function(registration) {
+                        console.log('Service Worker enregistré avec succès:', registration.scope);
+                    })
+                    .catch(function(error) {
+                        console.log('Erreur Service Worker:', error);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>
